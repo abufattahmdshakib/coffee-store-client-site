@@ -9,21 +9,21 @@ const AddCoffee = () => {
     const formData = new FormData(form);
     const newCoffee = Object.fromEntries(formData.entries());
 
-      const response = await fetch('http://localhost:4000/coffees', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newCoffee)
-      });
+    const response = await fetch('http://localhost:4000/coffees', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newCoffee)
+    });
 
 
-      const data = await response.json();
-      console.log("After adding coffee to DB:", data);
+    const data = await response.json();
+    console.log("After adding coffee to DB:", data);
 
-      form.reset();
-      alert('Coffee added successfully!');
-  
+    form.reset();
+    alert('Coffee added successfully!');
+
   };
 
   return (

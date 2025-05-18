@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router';
 import Swal from 'sweetalert2';
 
-const CoffeeCard = ({ coffee }) => {
+const CoffeeCard = ({ coffee ,coffeeData ,setCoffeeData }) => {
     const { _id, photo, name, taste } = coffee;
 
     const handleDelete = (_id) => {
@@ -21,14 +22,15 @@ const CoffeeCard = ({ coffee }) => {
                 })
                     .then(res => res.json())
                     .then(data => {
-                        console.log(data);
-
                         if (data.deletedCount > 0) {
                             Swal.fire({
                                 title: "Deleted!",
                                 text: "Your coffee has been deleted.",
                                 icon: "success"
                             });
+                            //remove the coffee card to display
+                            const remainingCard = coffeeData.filter(card => card._id !== _id);
+                            setCoffeeData(remainingCard);
                         }
                     })
                     
@@ -49,8 +51,8 @@ const CoffeeCard = ({ coffee }) => {
                     <p>{taste}</p>
                     <div className="card-actions justify-end">
                         <div className="join join-vertical">
-                            <button className="btn join-item">view</button>
-                            <button className="btn join-item">Edit</button>
+                            <Link to={`/coffees/${_id}`}><button className="btn join-item">view</button></Link>
+                           <Link to={`/UpdateCoffee/${_id}`}> <button className="btn join-item">Edit</button></Link>
                             <button onClick={() => handleDelete(_id)} className="btn join-item">X</button>
                         </div>
                     </div>

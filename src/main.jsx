@@ -10,24 +10,32 @@ import Header from './components/Header';
 import Home from './components/Home';
 import AddCoffee from './components/AddCoffee';
 import UpdateCoffee from './components/UpdateCoffee';
+import ViewDetails from './page/ViewDetails';
+
 
 const router = createBrowserRouter([
   {
     path: "/",
-    Component:MainLayout,
-    children:[
+    Component: MainLayout,
+    children: [
       {
-        index:true,
+        index: true,
         loader: () => fetch('http://localhost:4000/coffees'),
-        Component:Home
+        Component: Home
       },
       {
-        path:"/AddCoffee",
-        Component:AddCoffee
+        path: "/AddCoffee",
+        Component: AddCoffee
       },
       {
-        path:"/UpdateCoffee",
-        Component:UpdateCoffee
+        path: "/coffees/:id",
+        loader: ({ params }) => fetch(`http://localhost:4000/coffees/${params.id}`),
+        Component: ViewDetails
+      },
+      {
+        path: "/UpdateCoffee/:id",
+         loader: ({ params }) => fetch(`http://localhost:4000/coffees/${params.id}`),
+        Component: UpdateCoffee
       }
     ]
   },

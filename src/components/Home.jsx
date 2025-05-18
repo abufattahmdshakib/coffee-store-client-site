@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLoaderData } from 'react-router';
 import CoffeeCard from '../page/coffeeCard';
 
 const Home = () => {
-    const coffeeData = useLoaderData();
+    const initalcoffeeData = useLoaderData();
+    //delete korar por reload na diye display theke soranor jonno
+    const [coffeeData , setCoffeeData] = useState(initalcoffeeData);
     
     return (
         <div>
@@ -12,7 +14,7 @@ const Home = () => {
             <h1>Add Coffee</h1>
             <div className='grid grid-cols-2 gap-4'>
                 {
-                   coffeeData.map( coffee => <CoffeeCard key={coffee._id} coffee ={coffee}></CoffeeCard>) 
+                   coffeeData.map( coffee => <CoffeeCard key={coffee._id} coffeeData = {coffeeData} setCoffeeData = {setCoffeeData}  coffee ={coffee}></CoffeeCard>) 
                 }
             </div>
         </div>
